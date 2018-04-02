@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "modules.h"
+#include <libgen.h>
 
-#define PROGRAM_NAME "stress"
+#include "modules.h"
 
 static void print_overall_help(char *arg0, FILE *fp)
 {
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	FILE *log;
 	int i, modIndex;
 	if(argc < 2) {
-		print_overall_help(PROGRAM_NAME, stdout);
+		print_overall_help(basename(argv[0]), stdout);
 		return 0;
 	}
 
