@@ -1,6 +1,6 @@
 # Feature List
 
-- [ ] Processor usage
+- [X] Processor usage
 - [ ] RAM usage
 - [ ] Process creation/destruction (rate per second, duration of process life)
 - [ ] Disk I/O
