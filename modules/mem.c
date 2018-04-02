@@ -46,9 +46,11 @@ int mem_run(FILE *fp)
 
 	memories = malloc(numMegs * 1024 * 1024);
 	if(memories == NULL) {
-		fprintf(fp, "mem_run: couldn't allocate %dMB!", numMegs);
+		fprintf(fp, "mem: couldn't allocate %dMB!", numMegs);
 		return 1;
 	}
+
+	fprintf(fp, "mem: running!\n");
 
 	while(sleep(600) == 0) ;
 
