@@ -12,6 +12,7 @@ static void print_overall_help(char *arg0, FILE *fp)
 	fprintf(fp, "%s: [options] <module> [module options]\n", arg0);
 	fprintf(fp, "Options:\n");
 	fprintf(fp, " -o file               File to write module log to (default: stdout)\n\n");
+	fprintf(fp, " -h                    Show help for all available modules\n\n");
 	fprintf(fp, "available modules: ");
 	for(i=0; Modules[i].name != NULL; i++) {
 		fprintf(fp, "%s ", Modules[i].name);
