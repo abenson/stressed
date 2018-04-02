@@ -5,6 +5,7 @@
 #include <math.h>
 
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "cpu.h"
@@ -48,11 +49,18 @@ int cpu_run(FILE* fp)
 	int i, r, pid;
 	fprintf(fp, "cpu: running!\n");
 
-	srand(time(NULL));
-	for(;;) {
-		r = rand();
-		sqrtl(r);
+	for(i=0; i<numProc; i++) {
+		pid = fork();
+		if(pid == 0) {
+			srand(time(NULL));
+			for(;;) {
+				r = rand();
+				sqrtl(r);
+			}
+		}
 	}
+
+	wait(NULL);
 
 	return 0;
 }
