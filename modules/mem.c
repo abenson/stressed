@@ -6,7 +6,7 @@
 
 #include "mem.h"
 
-int numMegs = 1;
+static int numMegs = 1;
 
 int mem_init(char **argv, FILE *fp)
 {

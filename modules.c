@@ -6,6 +6,7 @@
 
 #include "modules/cpu.h"
 #include "modules/mem.h"
+#include "modules/proc.h"
 
 /*
 	const char *name;
@@ -17,6 +18,7 @@
 Module Modules[] = {
 	{"cpu", cpu_init, cpu_help, cpu_run},
 	{"mem", mem_init, mem_help, mem_run},
+	{"proc", proc_init, proc_help, proc_run},
 	{NULL, NULL, NULL, NULL}
 };
 

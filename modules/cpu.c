@@ -10,7 +10,7 @@
 
 #include "cpu.h"
 
-int numProc = 1;
+static int numProc = 1;
 
 int cpu_init(char** argv, FILE*fp)
 {
