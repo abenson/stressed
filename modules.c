@@ -28,3 +28,22 @@ int module_byname(const char *name)
 	}
 	return -1;
 }
+
+void module_help_all(FILE *fp)
+{
+	int i;
+	for(i=0; Modules[i].name != NULL; i++) {
+		Modules[i].help(fp);
+	}
+}
+
+void module_help(FILE * fp, const char *name)
+{
+	int i;
+	for(i=0; Modules[i].name != NULL; i++) {
+		if(strcmp(name, Modules[i].name) == 0) {
+			Modules[i].help(fp);
+			return;
+		}
+	}
+}

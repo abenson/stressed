@@ -12,4 +12,7 @@ extern Module Modules[];
 
 int module_byname(const char *);
 
+void module_help_all(FILE *);
+void module_help(FILE *, const char *);
+
 #endif

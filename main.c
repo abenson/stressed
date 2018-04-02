@@ -22,7 +22,8 @@ static void print_overall_help(char *arg0, FILE *fp)
 int main(int argc, char *argv[])
 {
 	FILE *log;
-	int i, modIndex;
+	int i, modIndex, status;
+
 	if(argc < 2) {
 		print_overall_help(basename(argv[0]), stdout);
 		return 0;
@@ -37,6 +38,9 @@ int main(int argc, char *argv[])
 				fprintf(stderr, "couldn't open '%s' for writing\n", argv[i]);
 				return 1;
 			}
+		} else if(strcmp(argv[i], "-h") == 0) {
+			module_help_all(stdout);
+			return 0;
 		}
 		i++;
 	}
@@ -47,7 +51,12 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	Modules[modIndex].init(argv+i+1, stdout);
+	status = Modules[modIndex].init(argv+i+1, stdout);
+
+	if(status != 0) {
+		fprintf(stdout, "%s returned error %d.\n", Modules[modIndex].name, status);
+		return 1;
+	}
 
 	Modules[modIndex].run(stdout);
 
