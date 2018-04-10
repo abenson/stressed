@@ -59,24 +59,46 @@ int proc_help(FILE* fp)
 	return 0;
 }
 
+static void child_proc(void)
+{
+	unsigned int timeLeft = procLife;
+	while((timeLeft = sleep(timeLeft)) != 0);
+	exit(0);
+}
+
 int proc_run(FILE* fp)
 {
-	int i, pid;
+	int i, status;
+	pid_t pid;
 	fprintf(fp, "proc: running!\n");
 
 	for(i=0; i<numProc; i++) {
+		sleep(rand() % procLife);
 		pid = fork();
-		if(pid == 0) {
-			while(sleep(procLife) == 0) {
-				pid = fork();
-				if(pid > 0) {
-					exit(0);
-				}
-			}
+		if (pid < 0) {
+			fprintf(fp, "proc: couldn't fork! giving up.\n");
+			return 3;
+		} else if(pid == 0) {
+			child_proc();
+		} else {
+			fprintf(fp, "proc: begat child %d\n", pid);
 		}
 	}
 
-	wait(NULL);
+	while((pid = waitpid(-1, &status, 0)) >= 0) {
+		if(pid > 0) {
+			fprintf(fp, "proc: child %d died\n", pid);
+			pid = fork();
+			if(pid < 0) {
+				fprintf(fp, "proc: couldn't fork! giving up.\n");
+				return 3;
+			} if(pid == 0) {\
+				child_proc();
+			} else {
+				fprintf(fp, "proc: begat child %d\n", pid);
+			}
+		}
+	}
 
 	return 0;
 }
